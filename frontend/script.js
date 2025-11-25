@@ -269,13 +269,14 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       const name = document.getElementById('playerName').value;
       const age = document.getElementById('playerAge').value;
+      const basePrice = document.getElementById('playerBasePrice').value; 
       const role = document.getElementById('playerRole').value;
       const photoInput = document.getElementById('playerPhoto');
       if (photoInput.files && photoInput.files[0]) {
         const reader = new FileReader();
         reader.onload = function (event) {
           const photoData = event.target.result;
-          const player = { name, age, role, photo: photoData };
+          const player = { name, age, role, basePrice, photo: photoData };
           let players = JSON.parse(localStorage.getItem('players_' + auctionId)) || [];
           players.push(player);
           localStorage.setItem('players_' + auctionId, JSON.stringify(players));
@@ -301,9 +302,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="font-extrabold text-lg text-yellow-300">${player.name}</div>
             <div class="text-gray-200 text-md">Age: ${player.age}</div>
             <div class="text-gray-400 text-sm">Role: ${player.role}</div>
-          </div>
+            <div class="text-gray-400 text-sm">Base Price: ${player.basePrice}</div>
+          </div>   
         </div>
-      `).join('');
+      `).join('');  
     }
   }
 
