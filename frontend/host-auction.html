@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Host Auction</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white p-6">
+
+<h1 class="text-3xl font-bold mb-4">🏏 Host Your Tournament</h1>
+
+<form id="tournamentForm" class="space-y-4">
+  <input type="text" placeholder="Tournament Name" id="tournamentName" class="w-full p-2 rounded text-black" required>
+  <input type="text" placeholder="City" id="city" class="w-full p-2 rounded text-black" required>
+  <input type="text" placeholder="Place" id="place" class="w-full p-2 rounded text-black" required>
+  <input type="text" placeholder="Organizer Name" id="organizerName" class="w-full p-2 rounded text-black" required>
+  <input type="tel" placeholder="Organizer Number" id="organizerNumber" class="w-full p-2 rounded text-black" required>
+  <input type="email" placeholder="Organizer Email" id="organizerEmail" class="w-full p-2 rounded text-black" required>
+
+  <!-- Auction Type (first dropdown) -->
+  <label class="block">Tournament Auction Type:</label>
+  <select id="auctionType" class="w-full p-2 rounded text-black">
+    <option>Open</option>
+    <option>Corporate</option>
+    <option>Community</option>
+    <option>School</option>
+    <option>College</option>
+    <option>Other</option>
+  </select>
+
+  <!-- Ball Type (second dropdown)-->
+  <label class="block">Ball Type:</label>
+  <select id="ballType" class="w-full p-2 rounded text-black">
+    <option>I10</option>
+    <option>Tennis</option>
+    <option>Leather</option>
+    <option>Other</option>
+  </select>
+
+  <!-- Match Length (third dropdown) -->
+  <label class="block">Match Length:</label>
+  <select id="matchLength" class="w-full p-2 rounded text-black">
+    <option>Limited Overs</option>
+    <option>Turf Cricket</option>
+    <option>Test Match</option>
+  </select>
+
+  <!-- ...existing code above... -->
+
+<!-- Purse Limit Per Team -->
+<label class="block">Purse Limit per Team:</label>
+<input type="number" placeholder="Enter purse limit per team" id="purseLimit" class="w-full p-2 rounded text-black" required>
+
+<!-- Minimum Bid -->
+<label class="block mt-4">Minimum Bid:</label>
+<div class="space-y-2">
+  <input type="number" placeholder="Batsman Minimum Bid" id="batsmanMinBid" class="w-full p-2 rounded text-black" required>
+  <input type="number" placeholder="Bowler Minimum Bid" id="bowlerMinBid" class="w-full p-2 rounded text-black" required>
+  <input type="number" placeholder="All Rounder Minimum Bid" id="allRounderMinBid" class="w-full p-2 rounded text-black" required>
+</div>
+
+<!-- Bid Increase By -->
+<label class="block mt-4">Bid Increase By:</label>
+<div class="space-y-2">
+  <input type="number" placeholder="Batsman Bid Increase" id="batsmanBidIncrease" class="w-full p-2 rounded text-black" required>
+  <input type="number" placeholder="Bowler Bid Increase" id="bowlerBidIncrease" class="w-full p-2 rounded text-black" required>
+  <input type="number" placeholder="All Rounder Bid Increase" id="allRounderBidIncrease" class="w-full p-2 rounded text-black" required>
+</div>
+
+<!-- Players Per Team -->
+<label class="block mt-4">Players Per Team:</label>
+<input type="number" placeholder="Enter number of players per team (e.g., 11)" id="playersPerTeam" class="w-full p-2 rounded text-black" required>
+
+<!-- ...existing code below... -->
+
+
+  <label class="block">Select Auction Date:</label>
+  <input type="date" id="auctionDate" class="w-full p-2 rounded text-black" required>
+
+  <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded">Schedule Auction</button>
+</form>
+
+
+<div id="uniqueIdDisplay" class="mt-4 text-green-400 font-bold"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

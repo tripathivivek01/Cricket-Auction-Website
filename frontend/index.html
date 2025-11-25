@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cricket Auction Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+    .success {
+      color: limegreen;
+      font-size: 0.9rem;
+    }
+  </style>
+</head> 
+<body class="h-screen flex items-center justify-center">
+  <div class="overlay p-8 rounded-lg w-96 text-white">
+    <h1 class="text-2xl font-bold mb-4 text-center">🏏 Cricket Auction</h1>
+    
+    <!-- Login Form -->
+    <form id="loginForm">
+      <h2 class="text-xl font-semibold mb-2">Login</h2>
+      <input type="text" id="username" placeholder="Username" class="w-full p-2 mb-2 rounded text-black" required>
+      <input type="password" id="password" placeholder="Password" class="w-full p-2 mb-2 rounded text-black" required>
+      <p id="loginMsg" class="error mb-2"></p>
+      <button type="submit" class="bg-green-500 hover:bg-green-600 w-full p-2 rounded font-bold">Login</button>
+    </form>
+
+    <hr class="my-4 border-gray-400">
+
+    <!-- Signup Form -->
+    <form id="signupForm">
+      <h2 class="text-xl font-semibold mb-2">Sign Up</h2>
+      <input type="text" id="newUsername" placeholder="New Username" class="w-full p-2 mb-2 rounded text-black" required>
+      <input type="password" id="newPassword" placeholder="New Password" class="w-full p-2 mb-2 rounded text-black" required>
+      <p id="signupMsg" class="error mb-2"></p>
+      <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 w-full p-2 rounded font-bold">Sign Up</button>
+    </form>
+  </div>
+
+  <!-- External Script -->
+  <script src="script.js"></script>
+</body>
+</html>
