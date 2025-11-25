@@ -13,20 +13,59 @@
     }
     .overlay {
       background: rgba(0, 0, 0, 0.5);
-      
       backdrop-filter: blur(4px);
     }
   </style>
 </head>
-<body class="h-screen flex flex-col items-center justify-center text-white">
-  <div class="overlay p-10 rounded-lg text-center">
-    <h1 class="text-4xl font-bold mb-4">🏏 Welcome to the Cricket Auction</h1>
-    <p class="mb-6">Host your own tournament, bid for players, and create your dream team!</p>
-    <div class="space-x-4">
-      <a href="host-auction.html" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded">Host Auction</a>
-      <a href="join-auction.html" class="bg-green-500 hover:bg-green-600 font-bold py-2 px-4 rounded">Join Auction</a>
-      <a href="my-auctions.html" class="bg-blue-500 hover:bg-blue-600 font-bold py-2 px-4 rounded">My Auction</a>
+<body class="h-screen text-white">
+
+  <!-- NAVBAR: put at very top -->
+   <div style="width: 97%; margin: 24px auto 0 auto; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.12); background: #fff;">
+    <nav class="flex items-center justify-between px-8 py-4 w-full" style="border-bottom:2px solid #545c6b;">
+      <div class="flex items-center">
+        <img src="https://w7.pngwing.com/pngs/730/815/png-transparent-cricket-batting-drawing-cricket-logo-sports-equipment-sports-thumbnail.png" alt="Logo" class="w-12 h-12 mr-2" />
+        <span style="font-size:2rem; font-weight: 700; color: #24292f;">THEcricBAZZ</span>
+      </div>
+      <ul class="flex gap-12 items-center ml-8">
+        <li><a href="index.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">Home</a></li>
+        <li><a href="index.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">SignIn/Register</a></li>
+        <li><a href="index.html#blog-section" class="text-lg font-bold text-gray-900 hover:text-blue-600">Blog</a></li>
+        <li><a href="index.html#steps-section" class="text-lg font-bold text-gray-900 hover:text-blue-600">How it works?</a></li>
+        <li><a href="profile.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">My Profile</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Your page content below the navbar -->
+  <div class="h-screen flex flex-col items-center justify-center">
+    <div class="overlay p-10 rounded-lg text-center">
+      <h1 class="text-4xl font-bold mb-4">🏏 Welcome to the Cricket Auction</h1>
+      <p class="mb-6">Host your own tournament, bid for players, and create your dream team!</p>
+      <div class="space-x-4">
+        <a href="host-auction.html" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded">Host Auction</a>
+        <a href="join-auction.html" class="bg-green-500 hover:bg-green-600 font-bold py-2 px-4 rounded">Join Auction</a>
+        <a href="my-auctions.html" class="bg-blue-500 hover:bg-blue-600 font-bold py-2 px-4 rounded">My Auction</a>
+      </div>
     </div>
   </div>
+
+  <script>
+  document.getElementById('nav-home').onclick = function(e){
+      e.preventDefault();
+      window.location.href = 'index.html';
+  };
+  document.getElementById('nav-signin').onclick = function(e){
+      e.preventDefault();
+      window.location.href = 'index.html';
+  };
+  document.getElementById('nav-blog').onclick = function(e){
+      e.preventDefault();
+      window.location.href = "index.html#blog-section";
+  };
+  document.getElementById('nav-howitworks').onclick = function(e){
+      e.preventDefault();
+      window.location.href = "index.html#steps-section";
+  };
+  </script>
 </body>
 </html>

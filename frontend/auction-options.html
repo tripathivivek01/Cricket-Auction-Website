@@ -2,12 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Auction Options</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background: #181e2a; color: #fff; }
+    .nav-tab { font-size: 1.2rem; color: #fff; background: none; border: none; padding: 0.7rem 2.2rem; cursor: pointer; border-bottom: 4px solid transparent; }
+    .active-nav { border-bottom: 4px solid #FFD600; color: #FFD600; font-weight: bold;}
+    .hidden { display: none; }
+  </style>
 </head>
-<body class="bg-gray-900 text-white p-6">
-  <div id="auctionDetails"></div>
+<body>
+  <!-- Header: Tournament Info (filled by JS) -->
+  <div id="auctionHeaderInfo" class="flex items-center gap-6 px-8 pt-10 pb-2"></div>
+
+  <!-- Tab Navigation -->
+  <div class="flex gap-8 mt-8 ml-8">
+    <button class="nav-tab active-nav" id="nav-teams">TEAMS</button>
+    <button class="nav-tab" id="nav-players">PLAYERS</button>
+    <button class="nav-tab" id="nav-mvp">MVP</button>
+    <button class="nav-tab" id="nav-sponsors">SPONSORS</button>
+    <button class="nav-tab" id="nav-about">ABOUT</button>
+  </div>
+
+  <div class="max-w-full bg-white rounded shadow p-4 mt-6 mx-8 text-black">
+    Export sold players/teams via excel file? <a href="#" class="text-blue-600 underline">Tap Here</a>
+  </div>
+
+  <!-- Tab Content -->
+  <div id="tab-content-teams" class="mt-10 mx-8">
+    <div id="teamsListSection"></div>
+    <div class="text-center my-8">
+      <button class="bg-red-600 px-10 py-3 rounded text-white font-bold text-lg mx-6">START AUCTION</button>
+      <button class="bg-red-600 px-10 py-3 rounded text-white font-bold text-lg mx-6">VIEW AUCTION</button>
+    </div>
+  </div>
+  <div id="tab-content-players" class="mt-10 mx-8 hidden">
+    <div id="playersListSection"></div>
+  </div>
+  <div id="tab-content-mvp" class="mt-10 mx-8 hidden"><p class="text-center text-2xl py-24">MVP Tab Coming Soon...</p></div>
+  <div id="tab-content-sponsors" class="mt-10 mx-8 hidden"><p class="text-center text-2xl py-24">Sponsors Tab Coming Soon...</p></div>
+  <div id="tab-content-about" class="mt-10 mx-8 hidden"><p class="text-center text-2xl py-24">About Tab Coming Soon...</p></div>
+
+  <!-- Plus Buttons -->
+  <button id="openTeamModal" class="fixed bottom-8 right-8 bg-red-700 text-white rounded-full shadow-lg p-5 text-4xl flex items-center justify-center z-30">+</button>
+  <button id="openPlayerModal" class="fixed bottom-8 right-28 bg-white text-red-700 border border-red-700 rounded-full shadow-lg p-5 text-4xl flex items-center justify-center z-30 hidden">+</button>
+
+  <!-- Add Team Modal -->
+  <div id="addTeamModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-96">
+      <h2 class="text-2xl font-bold mb-4 text-center">Add Team</h2>
+      <form id="addTeamForm" class="space-y-4">
+        <input type="text" id="teamName" placeholder="Team Name" class="w-full p-2 border rounded bg-white text-black" required>
+        <input type="text" id="teamIcon" placeholder="Team Icon URL" class="w-full p-2 border rounded bg-white text-black" required>
+        <input type="text" id="teamOwner" placeholder="Team Owner" class="w-full p-2 border rounded bg-white text-black" required>
+        <input type="text" id="teamCaptain" placeholder="Team Captain" class="w-full p-2 border rounded bg-white text-black" required>
+        <div class="flex justify-between mt-6">
+          <button type="submit" class="bg-green-600 text-white font-bold px-6 py-2 rounded hover:bg-green-700">Add</button>
+          <button type="button" id="closeTeamModal" class="bg-gray-400 px-6 py-2 rounded text-black font-bold hover:bg-gray-500">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Player Modal -->
+  <div id="addPlayerModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-96">
+      <h2 class="text-2xl font-bold mb-4 text-center">Add Player</h2>
+      <form id="addPlayerForm" class="space-y-4">
+        <input type="text" id="playerName" placeholder="Player Name" class="w-full p-2 border rounded bg-white text-black" required>
+        <input type="number" id="playerAge" min="8" max="60" placeholder="Player Age" class="w-full p-2 border rounded bg-white text-black" required>
+        <select id="playerRole" class="w-full p-2 border rounded bg-white text-black" required>
+          <option value="">Select Role</option>
+          <option>Batsman</option>
+          <option>Bowler</option>
+          <option>Wicket Keeper Batsman</option>
+          <option>All Rounder</option>
+        </select>
+        <input type="file" id="playerPhoto" accept="image/*" class="w-full p-2 border rounded bg-white text-black" required>
+        <div class="flex justify-between mt-6">
+          <button type="submit" class="bg-green-600 text-white font-bold px-6 py-2 rounded hover:bg-green-700">Add</button>
+          <button type="button" id="closePlayerModal" class="bg-gray-400 px-6 py-2 rounded text-black font-bold hover:bg-gray-500">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

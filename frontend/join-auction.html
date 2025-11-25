@@ -1,22 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Join Auction</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Auction</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1350&q=80'); /* example, set your bg here */
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+    }
+    .form-overlay {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(2px);
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white p-6">
+<body>
 
-<h1 class="text-3xl font-bold mb-4">🎯 Join a Live Auction</h1>
+  <!-- NAVBAR CONTAINER: Centered, rounded, shadow -->
+  <div style="width: 97%; margin: 24px auto 0 auto; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.12); background: #fff;">
+    <nav class="flex items-center justify-between px-8 py-4 w-full" style="border-bottom:2px solid #545c6b;">
+      <div class="flex items-center">
+        <img src="https://w7.pngwing.com/pngs/730/815/png-transparent-cricket-batting-drawing-cricket-logo-sports-equipment-sports-thumbnail.png" alt="Logo" class="w-12 h-12 mr-2" />
+        <span style="font-size:2rem; font-weight: 700; color: #24292f;">THEcricBAZZ</span>
+      </div>
+      <ul class="flex gap-12 items-center ml-8">
+        <li><a href="index.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">Home</a></li>
+        <li><a href="index.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">SignIn/Register</a></li>
+        <li><a href="index.html#blog-section" class="text-lg font-bold text-gray-900 hover:text-blue-600">Blog</a></li>
+        <li><a href="index.html#steps-section" class="text-lg font-bold text-gray-900 hover:text-blue-600">How it works?</a></li>
+        <li><a href="profile.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">My Profile</a></li>
+      </ul>
+    </nav>
+  </div>
 
-<form id="joinAuctionForm" class="space-y-4">
-  <input type="text" placeholder="Enter Unique Auction ID" id="auctionIdInput" class="w-full p-2 rounded text-black" required>
-  <button type="submit" class="bg-green-500 hover:bg-green-600 font-bold py-2 px-4 rounded">Join Auction</button>
-</form>
+  <!-- Main content: Centered form overlay -->
+  <div class="form-overlay max-w-md mx-auto mt-12 rounded-lg p-8 shadow-lg">
+    <h1 class="text-3xl font-bold mb-4 flex items-center"><span>🎯</span>&nbsp;Join a Live Auction</h1>
+    <form id="joinAuctionForm" class="space-y-4">
+      <input type="text" placeholder="Enter Unique Auction ID" id="auctionIdInput" class="w-full p-2 rounded text-black" required>
+      <button type="submit" class="bg-green-500 hover:bg-green-600 font-bold py-2 px-4 rounded w-full">Join Auction</button>
+    </form>
+    <div id="joinMessage" class="mt-4"></div>
+  </div>
 
-<div id="joinMessage" class="mt-4"></div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

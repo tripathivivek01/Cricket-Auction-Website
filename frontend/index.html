@@ -3,13 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cricket Auction Login</title>
+  <title>THEcricRANGBAZZ Login</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
-      background-image: url('https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&w=1350&q=80');
+      background: #fff;
+    }
+    #hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1607734834519-d8576ae60ea6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y3JpY2tldCUyMHN0YWRpdW18ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000');
       background-size: cover;
       background-position: center;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .overlay {
       background: rgba(0, 0, 0, 0.6);
@@ -24,33 +32,225 @@
       font-size: 0.9rem;
     }
   </style>
-</head> 
-<body class="h-screen flex items-center justify-center">
-  <div class="overlay p-8 rounded-lg w-96 text-white">
-    <h1 class="text-2xl font-bold mb-4 text-center">🏏 Cricket Auction</h1>
-    
-    <!-- Login Form -->
-    <form id="loginForm">
-      <h2 class="text-xl font-semibold mb-2">Login</h2>
-      <input type="text" id="username" placeholder="Username" class="w-full p-2 mb-2 rounded text-black" required>
-      <input type="password" id="password" placeholder="Password" class="w-full p-2 mb-2 rounded text-black" required>
-      <p id="loginMsg" class="error mb-2"></p>
-      <button type="submit" class="bg-green-500 hover:bg-green-600 w-full p-2 rounded font-bold">Login</button>
-    </form>
-
-    <hr class="my-4 border-gray-400">
-
-    <!-- Signup Form -->
-    <form id="signupForm">
-      <h2 class="text-xl font-semibold mb-2">Sign Up</h2>
-      <input type="text" id="newUsername" placeholder="New Username" class="w-full p-2 mb-2 rounded text-black" required>
-      <input type="password" id="newPassword" placeholder="New Password" class="w-full p-2 mb-2 rounded text-black" required>
-      <p id="signupMsg" class="error mb-2"></p>
-      <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 w-full p-2 rounded font-bold">Sign Up</button>
-    </form>
+</head>
+<body>
+  <!-- HERO CONTAINER WRAPS NAV AND LOGIN AREA -->
+  <div id="hero-bg">
+    <div style="width: 97%; margin: 24px auto 0 auto; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.12); background: #fff;">
+      <nav class="flex items-center justify-between px-8 py-4 w-full" style="border-bottom:2px solid #545c6b;">
+        <div class="flex items-center">
+          <img src="https://w7.pngwing.com/pngs/730/815/png-transparent-cricket-batting-drawing-cricket-logo-sports-equipment-sports-thumbnail.png" alt="Logo" class="w-12 h-12 mr-2" />
+          <span style="font-size:2rem; font-weight: 700; color: #24292f;">THEcricBAZZ</span>
+        </div>
+        <ul class="flex gap-12 items-center ml-8">
+          <li><a href="index.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">Home</a></li>
+          <li><a href="index.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">SignIn/Register</a></li>
+          <li><a href="index.html#blog-section" class="text-lg font-bold text-gray-900 hover:text-blue-600">Blog</a></li>
+          <li><a href="index.html#steps-section" class="text-lg font-bold text-gray-900 hover:text-blue-600">How it works?</a></li>
+          <li><a href="profile.html" class="text-lg font-bold text-gray-900 hover:text-blue-600">My Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!-- LOGIN/SIGNUP FORM BELOW NAV, SAME BG -->
+    <div class="overlay p-8 rounded-lg w-96 mt-20 bg-white shadow text-black">
+      <h1 class="text-2xl font-bold mb-4 text-center">🏏 Cricket Auction</h1>
+      <form id="loginForm">
+        <h2 class="text-xl font-semibold mb-2">Login</h2>
+        <input type="text" id="username" placeholder="Username" class="w-full p-2 mb-2 rounded text-black border" required>
+        <input type="password" id="password" placeholder="Password" class="w-full p-2 mb-2 rounded text-black border" required>
+        <p id="loginMsg" class="error mb-2"></p>
+        <button type="submit" class="bg-green-500 hover:bg-green-600 w-full p-2 rounded font-bold">Login</button>
+      </form>
+      <hr class="my-4 border-gray-400">
+      <form id="signupForm">
+        <h2 class="text-xl font-semibold mb-2">Sign Up</h2>
+        <input type="text" id="newUsername" placeholder="New Username" class="w-full p-2 mb-2 rounded text-black border" required>
+        <input type="password" id="newPassword" placeholder="New Password" class="w-full p-2 mb-2 rounded text-black border" required>
+        <p id="signupMsg" class="error mb-2"></p>
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 w-full p-2 rounded font-bold">Sign Up</button>
+      </form>
+    </div>
   </div>
 
-  <!-- External Script -->
+  <!-- REST OF PAGE: WHITE BACKGROUND ONLY -->
+  <main class="bg-white">
+    <section id="blog-section" class="max-w-4xl mx-auto bg-white p-10 rounded-lg shadow-md my-16 text-gray-900 leading-relaxed">
+  <h2 class="text-4xl font-extrabold mb-6">What is THEcricBAZZ?</h2>
+  
+  <p class="mb-6 text-lg">
+    In the ever-evolving world of cricket, <strong>THEcricBAZZ</strong> stands out as a unique and powerful platform designed to simplify and energize the player auction experience for tournaments of every size. More than just an auction tool, THEcricRANGBAZZ is a complete management solution for cricket organizers, team owners, players, and fans, allowing everyone to join in the excitement of building competitive squads and discovering new talent.
+  </p>
+
+  <h3 class="text-2xl font-semibold mb-4">The Heart of Cricket Auctions</h3>
+  <p class="mb-6">
+    Gone are the days of tedious manual paperwork, back-and-forth emails, and scattered spreadsheets. <strong>THEcricBAZZ</strong> streamlines the entire auction process—from setting up tournaments and registering teams to hosting high-energy player bidding events, all in one digital place. Organizers can effortlessly create auctions by filling out customizable forms: set purse limits, choose player categories, invite team owners, and define all the rules needed for a professional event.
+  </p>
+  
+  <h3 class="text-2xl font-semibold mb-4">Smart, Transparent, and Engaging</h3>
+  <p class="mb-6">
+    Transparency and fairness are at the core of THEcricRANGBAZZ. Every bid is tracked in real-time, screencast to all participants, with robust controls to ensure compliance with tournament rules. The platform’s intuitive interface ensures that newcomers and seasoned cricket managers alike find the process simple and enjoyable. Live updates, automatic budget tracking, and clear squad composition tools mean every team’s strategy plays out on an even field.
+  </p>
+
+  <h3 class="text-2xl font-semibold mb-4">Empowering Players and Teams</h3>
+  <p class="mb-6">
+    For players, THEcricRANGBAZZ is an opportunity hub. Young rising stars and experienced cricketers alike can register to be part of the auction pool, showcase their stats, and get picked up by enthusiastic team owners. Teams can scout, plan, and make data-driven decisions using integrated player profiles, so both squads and individuals stand to gain from every auction event.
+  </p>
+
+  <h3 class="text-2xl font-semibold mb-4">Beyond the Auction: Community and Growth</h3>
+  <p>
+    THEcricRANGBAZZ is more than software; it is a cricketing community. Event organizers can engage fans with live streaming overlays, sponsor promotions, and up-to-the-minute auction dashboards. As the sport continues to embrace technology, our platform is constantly evolving—adding new features like analytics tools, export to Excel for result tracking, and interactive experiences for both spectators and participants.
+  </p>
+
+</section>
+
+  <!-- Steps Section -->
+<section id="steps-section" class="py-16 max-w-3xl mx-auto">
+  <h2 class="text-5xl font-extrabold mb-5 text-center">Steps</h2>
+  <p class="mb-10 text-center text-xl text-gray-700 max-w-2xl mx-auto">Here are the steps you need to complete in order to do a successful auction on THEcricRANGBAZZ.</p>
+
+  <div class="flex flex-col items-center">
+    <!-- Step 1 -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="bg-blue-400 text-white text-3xl font-extrabold rounded-full w-16 h-16 flex items-center justify-center mb-3 shadow">1</div>
+      <div class="text-center">
+        <h3 class="text-xl font-bold mb-1">Sign Up</h3>
+        <p class="text-md text-gray-700">You can use your google/facebook account to sign in on the platform.</p>
+      </div>
+    </div>
+
+    <!-- Arrow -->
+    <div class="w-2 h-8 bg-blue-200"></div>
+
+    <!-- Step 2 -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="bg-blue-400 text-white text-3xl font-extrabold rounded-full w-16 h-16 flex items-center justify-center mb-3 shadow">2</div>
+      <div class="text-center">
+        <h3 class="text-xl font-bold mb-1">Create Auction</h3>
+        <p class="text-md text-gray-700">Fill a form to provide details and logo for the auction.</p>
+      </div>
+    </div>
+
+    <div class="w-2 h-8 bg-blue-200"></div>
+
+    <!-- Step 3 -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="bg-blue-400 text-white text-3xl font-extrabold rounded-full w-16 h-16 flex items-center justify-center mb-3 shadow">3</div>
+      <div class="text-center">
+        <h3 class="text-xl font-bold mb-1">Add Teams</h3>
+        <p class="text-md text-gray-700">Add all the teams and their logos one by one by filling the form.</p>
+      </div>
+    </div>
+
+    <div class="w-2 h-8 bg-blue-200"></div>
+
+    <!-- Step 4 -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="bg-blue-400 text-white text-3xl font-extrabold rounded-full w-16 h-16 flex items-center justify-center mb-3 shadow">4</div>
+      <div class="text-center">
+        <h3 class="text-xl font-bold mb-1">Add Players</h3>
+        <p class="text-md text-gray-700">Share the registration form with players or add them yourself using bulk upload.</p>
+      </div>
+    </div>
+
+    <div class="w-2 h-8 bg-blue-200"></div>
+
+    <!-- Step 5 -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="bg-blue-400 text-white text-3xl font-extrabold rounded-full w-16 h-16 flex items-center justify-center mb-3 shadow">5</div>
+      <div class="text-center">
+        <h3 class="text-xl font-bold mb-1">Do auction of players</h3>
+        <p class="text-md text-gray-700">The auction dashboard screen selects random players and allows you to place bids.</p>
+      </div>
+    </div>
+
+    <div class="w-2 h-8 bg-blue-200"></div>
+
+    <!-- Step 6 -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="bg-blue-400 text-white text-3xl font-extrabold rounded-full w-16 h-16 flex items-center justify-center mb-3 shadow">6</div>
+      <div class="text-center">
+        <h3 class="text-xl font-bold mb-1">Share summary screen</h3>
+        <p class="text-md text-gray-700">Share the summary screen with team owners so everyone can check the status live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Us Section (add after steps-section) -->
+<section class="max-w-6xl mx-auto py-16 mb-24 flex bg-white rounded-lg shadow-md items-center gap-8">
+  <!-- Left Image -->
+  <div class="flex-1">
+    <img src="data:image/jpeg;base64,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" 
+      alt="Support Agent Illustration"
+      class="w-full max-w-md mx-auto" />
+  </div>
+  <!-- Right Form -->
+  <form class="flex-1 grid grid-cols-2 gap-6" style="font-family: 'Montserrat', sans-serif;">
+    <div>
+      <label class="block font-semibold text-lg">First Name</label>
+      <input type="text" placeholder="Your Name" required class="w-full mt-1 p-2 rounded bg-gray-100 text-black border" />
+    </div>
+    <div>
+      <label class="block font-semibold text-lg">Last Name</label>
+      <input type="text" placeholder="Your Surname" required class="w-full mt-1 p-2 rounded bg-gray-100 text-black border" />
+    </div>
+    <div>
+      <label class="block font-semibold text-lg">Email id*</label>
+      <input type="email" placeholder="Your Email" required class="w-full mt-1 p-2 rounded bg-gray-100 text-black border" />
+    </div>
+    <div>
+      <label class="block font-semibold text-lg">Mobile Number</label>
+      <input type="tel" placeholder="Your Mobile No" class="w-full mt-1 p-2 rounded bg-gray-100 text-black border" />
+    </div>
+    <div class="col-span-2">
+      <label class="block font-semibold text-lg">Message</label>
+      <textarea rows="4" placeholder="Your Message" class="w-full mt-1 p-2 rounded resize-none bg-gray-100 text-black border"></textarea>
+    </div>
+    <div class="col-span-2 flex justify-center mt-4">
+      <button type="submit" class="bg-red-900 text-white font-extrabold px-10 py-3 rounded-full text-lg hover:bg-red-800 shadow-md">SUBMIT</button>
+    </div>
+  </form>
+</section>
+
+<!-- Floating Up Arrow Button -->
+<button id="scrollTopBtn"
+  class="fixed bottom-8 right-8 bg-red-700 text-white rounded-full shadow-lg p-4 flex items-center justify-center"
+  style="z-index: 50; border: 6px solid #FFD600;">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+    viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7" />
+  </svg>
+</button>
+
+<script>
+  // "Scroll to top" button logic
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  if (scrollTopBtn) {
+    scrollTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+
+  </main>
+
+  <script>
+    document.getElementById('nav-home').onclick = function(e){
+      e.preventDefault();
+      window.location.href = 'index.html';
+    };
+    document.getElementById('nav-signin').onclick = function(e){
+      e.preventDefault();
+      window.location.href = 'index.html';
+    };
+    document.getElementById('nav-blog').onclick = function(e){
+      e.preventDefault();
+      document.getElementById('blog-section').scrollIntoView({behavior: "smooth"});
+    };
+    document.getElementById('nav-howitworks').onclick = function(e){
+      e.preventDefault();
+      document.getElementById('steps-section').scrollIntoView({behavior: "smooth"});
+    };
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
