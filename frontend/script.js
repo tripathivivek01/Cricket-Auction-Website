@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  const startAuctionBtn = document.getElementById('startAuctionBtn');
+if (startAuctionBtn) {
+  startAuctionBtn.addEventListener('click', function() {
+    // Pass the auctionId in the URL to the live auction page
+    window.location.href = `auction-start.html?auctionId=${auctionId}`;
+  });
+}
+
   // -------------------------
   // SIGNUP
   // -------------------------
@@ -165,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (auctionData) {
       const data = JSON.parse(auctionData);
       auctionHeaderInfo.innerHTML = `
-        <img src="your-tournament-logo.png" class="w-20 h-20 rounded-full" alt="Tournament Logo" />
+        <img src="https://cdn.vectorstock.com/i/1000v/74/80/cricket-tournament-sport-logo-emblem-vector-45077480.jpg" class="w-20 h-20 rounded-full" alt="Tournament Logo" />
         <div>
           <div class="text-2xl font-bold">${data.name}</div>
           <div class="text-gray-300 mt-2">📅 ${data.auctionDate} &nbsp;&nbsp; | Players/Team: ${data.playersPerTeam || "-"}</div>
@@ -237,24 +246,40 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
   function renderTeams() {
-    const teamsDiv = document.getElementById('teamsListSection');
-    if (!auctionId || !teamsDiv) return;
-    let teams = JSON.parse(localStorage.getItem('teams_' + auctionId)) || [];
-    if (teams.length === 0) {
-      teamsDiv.innerHTML = '<p class="text-center text-gray-300 mt-8">No teams added yet.</p>';
-    } else {
-      teamsDiv.innerHTML = teams.map(team => `
-        <div class="flex items-center gap-6 m-4 bg-gray-800 p-4 rounded shadow">
-          <img src="${team.icon}" class="w-14 h-14 rounded-full object-cover border-2 border-yellow-300">
-          <div>
-            <div class="font-extrabold text-lg text-yellow-300">${team.name}</div>
-            <div class="text-gray-200 text-md">Owner: ${team.owner}</div>
-            <div class="text-gray-400 text-sm">Captain: ${team.captain}</div>
+  const teamsDiv = document.getElementById('teamsListSection');
+  if (!auctionId || !teamsDiv) return;
+  let teams = JSON.parse(localStorage.getItem('teams_' + auctionId)) || [];
+
+  // Get current purse per team as updated by live auction
+  let auctionState = JSON.parse(localStorage.getItem('auctionState_' + auctionId) || "{}");
+  let purseArray = auctionState.teamPurses || [];
+
+  // Fallback for initial rendering before auction starts
+  let purseLimit = "";
+  const auctionData = localStorage.getItem(auctionId);
+  if(auctionData){
+    const data = JSON.parse(auctionData);
+    purseLimit = data.purseLimit || "";
+  }
+
+  if (teams.length === 0) {
+    teamsDiv.innerHTML = '<p class="text-center text-gray-300 mt-8">No teams added yet.</p>';
+  } else {
+    teamsDiv.innerHTML = teams.map((team, idx) => `
+      <div class="flex items-center gap-6 m-4 bg-gray-800 p-4 rounded shadow">
+        <img src="${team.icon}" class="w-14 h-14 rounded-full object-cover border-2 border-yellow-300">
+        <div>
+          <div class="font-extrabold text-lg text-yellow-300">${team.name}</div>
+          <div class="text-gray-200 text-md">Owner: ${team.owner}</div>
+          <div class="text-gray-400 text-sm">Captain: ${team.captain}</div>
+          <div class="text-green-400 text-md mt-1 font-bold">
+            Purse Left: ₹ ${purseArray[idx] !== undefined ? purseArray[idx] : purseLimit}
           </div>
         </div>
-      `).join('');
-    }
+      </div>
+    `).join('');
   }
+}
 
   // Add Player Modal Logic
   const openPlayerModal = document.getElementById('openPlayerModal');

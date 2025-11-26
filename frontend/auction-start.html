@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Auction Live</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { 
+     min-height: 100vh;
+    background:
+        linear-gradient(to bottom, rgba(10,12,25,0.85), rgba(10,12,25,0.92)),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+    background-size: cover;
+}
+.form-overlay, .auction-main-content > div, .modal-content {
+    background: rgba(34,36,46,0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    box-shadow: 0 8px 24px 0 rgba(0,0,0,0.15);
+    padding: 24px;
+}
+    {
+     background: #181e2a; color: #fff; min-height: 100vh;}
+    .active-team { border: 3px solid #FFD600; }
+    .bid-btn { background: #DC2626; transition: background 0.2s; }
+    .bid-btn:hover { background: #991B1B; }
+    .team-bid-card { transition: border 0.2s; }
+    .player-card img { border-width: 3px; }
+    .modalTitle { letter-spacing:0.5px; }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <!-- Top: Tournament Name -->
+  <div id="auctionTitle" class="w-full text-center py-8 text-4xl font-extrabold text-yellow-400"></div>
+  
+  <!-- Player order selection in a styled box (show at start only) -->
+  <div id="auctionOrderSelectBox" class="flex justify-center my-10">
+    <div class="bg-[#232939] border-4 border-gray-200 rounded-lg px-12 py-8 shadow-lg">
+      <div class="mb-5 text-lg text-white font-bold text-center tracking-wide">Sort Players By</div>
+      <div class="flex flex-row justify-center gap-6">
+        <button id="sequenceBtn"
+          class="bg-red-700 hover:bg-red-900 text-white px-8 py-3 text-lg rounded-md font-semibold focus:outline-none border-2 border-transparent focus:border-yellow-400 transition">
+          Sequence
+        </button>
+        <button id="categoryBtn"
+          class="bg-green-700 hover:bg-green-900 text-white px-8 py-3 text-lg rounded-md font-semibold focus:outline-none border-2 border-transparent focus:border-yellow-400 transition">
+          Category
+        </button>
+      </div>
+    </div>
+  </div>
+  <button id="endAuctionBtn" 
+  style="position:absolute;top:26px;right:30px;z-index:20" 
+  class="px-5 py-2 bg-red-700 hover:bg-red-900 text-white rounded-lg shadow font-bold text-xs">
+  End Auction
+</button>
+
+  
+  <!-- Status/Count Buttons Row -->
+  <div id="auctionStatusRow" class="flex justify-center gap-3 my-6">
+    <button id="soldTabBtn" class="px-7 py-2 rounded-t-lg font-bold bg-green-700 text-white text-lg shadow min-w-[120px]">Sold 0</button>
+    <button id="unsoldTabBtn" class="px-7 py-2 rounded-t-lg font-bold bg-red-700 text-white text-lg shadow min-w-[120px]">Unsold 0</button>
+    <button id="availableTabBtn" class="px-7 py-2 rounded-t-lg font-bold bg-yellow-600 text-white text-lg shadow min-w-[135px]">Available 0</button>
+    <button disabled class="px-7 py-2 rounded-t-lg font-bold bg-cyan-700 text-white text-lg shadow min-w-[120px]">
+      Team <span id="teamCountDisp">0</span>
+    </button>
+  </div>
+  
+  <div class="auction-main-content flex-1 flex flex-col items-center w-full px-4">
+
+    <!-- Player being auctioned (shows after selection) -->
+    <div id="auctionPlayerCard" class="w-full max-w-xl bg-gray-800 rounded-xl mx-auto my-8 text-center p-6"></div>
+
+    <!-- Row of Teams (with logos and purse left) -->
+    <div id="teamsRow" class="w-full max-w-6xl mx-auto my-6 flex flex-wrap gap-6 justify-center"></div>
+
+    <!-- Bidding Controls, only appear after auction start -->
+    <div id="bidControls" class="w-full flex justify-center items-center my-8 gap-8" style="display: none;">
+      <button id="bidDownBtn" class="bg-red-700 hover:bg-red-900 text-xl font-bold px-7 py-4 text-white rounded-full shadow">Bid Down</button>
+      <button id="bidUpBtn" class="bid-btn text-xl font-bold px-7 py-4 text-white rounded-full shadow">Bid Up</button>
+      <button id="soldBtn" class="bg-green-600 hover:bg-green-800 text-xl font-bold px-7 py-4 text-white rounded-full shadow">Sold</button>
+      <button id="unsoldBtn" class="bg-red-800 hover:bg-red-900 text-xl font-bold px-7 py-4 text-white rounded-full shadow">Unsold</button>
+    </div>
+
+    <!-- Current Bid Info -->
+    <div id="bidInfo" class="my-4 text-2xl text-center"></div>
+  </div>
+
+  <!-- Modal for player lists (Sold/Unsold/Available) -->
+  <div id="playersModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
+    <div class="bg-white max-w-lg w-full rounded-xl shadow-lg overflow-hidden flex flex-col">
+      <div class="flex justify-between items-center px-6 py-3 bg-red-700">
+        <div class="font-bold text-xl text-white modalTitle" id="modalTitle">Sold Players</div>
+        <button id="closeModalBtn" class="text-white text-2xl font-bold px-2 hover:text-yellow-300">&times;</button>
+      </div>
+      <div id="modalContent" class="px-4 py-4 max-h-[60vh] overflow-y-auto bg-white"></div>
+    </div>
+  </div>
+
+  <script src="auction-start.js"></script>
+</body>
+</html>
