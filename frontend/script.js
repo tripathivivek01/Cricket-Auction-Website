@@ -1,13 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  const startAuctionBtn = document.getElementById('startAuctionBtn');
-if (startAuctionBtn) {
-  startAuctionBtn.addEventListener('click', function() {
-    // Pass the auctionId in the URL to the live auction page
-    window.location.href = `auction-start.html?auctionId=${auctionId}`;
-  });
-}
-
   // -------------------------
   // SIGNUP
   // -------------------------
@@ -54,7 +46,7 @@ if (startAuctionBtn) {
   }
 
   // -------------------------
-  // HOST AUCTION PAGE LOGIC
+  // HOST AUCTION PAGE
   // -------------------------
   const tournamentForm = document.getElementById("tournamentForm");
   if (tournamentForm) {
@@ -88,7 +80,6 @@ if (startAuctionBtn) {
       localStorage.setItem("auctionScheduled", "yes");
     });
 
-    // Proceed button logic for host-auction page
     const proceedBtn = document.getElementById('proceedBtn');
     if (proceedBtn) {
       proceedBtn.addEventListener('click', function() {
@@ -104,33 +95,7 @@ if (startAuctionBtn) {
   }
 
   // -------------------------
-  // JOIN AUCTION PAGE LOGIC
-  // -------------------------
-  const joinForm = document.getElementById("joinAuctionForm");
-  if (joinForm) {
-    joinForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const enteredId = document.getElementById("auctionIdInput").value.trim();
-      const auctionData = localStorage.getItem(enteredId);
-      const joinMessage = document.getElementById("joinMessage");
-      if (auctionData) {
-        const data = JSON.parse(auctionData);
-        joinMessage.innerHTML = `
-          ✅ Successfully joined auction <strong>${data.name}</strong><br>
-          📍 Location: ${data.city}, ${data.place}<br>
-          📅 Auction Date: ${data.auctionDate}<br>
-          👤 Organizer: ${data.organizerName} (${data.organizerNumber})
-        `;
-        joinMessage.className = "text-green-400 mt-4 font-semibold";
-      } else {
-        joinMessage.textContent = "❌ Invalid Auction ID!";
-        joinMessage.className = "text-red-400 mt-4 font-semibold";
-      }
-    });
-  }
-
-  // -------------------------
-  // MY AUCTIONS PAGE LOGIC
+  // MY AUCTIONS PAGE
   // -------------------------
   const myAuctionsList = document.getElementById("myAuctionsList");
   if (myAuctionsList) {
@@ -139,7 +104,7 @@ if (startAuctionBtn) {
     for (let key in localStorage) {
       if (key.startsWith("AUC")) {
         const data = JSON.parse(localStorage.getItem(key));
-        if (data.createdBy === currentUser) {
+        if (data && data.createdBy === currentUser) {
           auctions.push({ ...data, id: key });
         }
       }
@@ -161,22 +126,20 @@ if (startAuctionBtn) {
   }
 
   // -------------------------
-  // AUCTION OPTIONS PAGE LOGIC (Per Tournament)
+  // AUCTION OPTIONS PAGE
   // -------------------------
-  // Get auction/tournament ID from URL for per-tournament data
   const params = new URLSearchParams(window.location.search);
   const auctionId = params.get("auctionId");
 
-  // Tournament Info on Top
   const auctionHeaderInfo = document.getElementById("auctionHeaderInfo");
   if (auctionHeaderInfo && auctionId) {
     const auctionData = localStorage.getItem(auctionId);
     if (auctionData) {
       const data = JSON.parse(auctionData);
       auctionHeaderInfo.innerHTML = `
-        <img src="https://cdn.vectorstock.com/i/1000v/74/80/cricket-tournament-sport-logo-emblem-vector-45077480.jpg" class="w-20 h-20 rounded-full" alt="Tournament Logo" />
+        <img src="your-tournament-logo.png" class="w-20 h-20 rounded-full" alt="Tournament Logo" />
         <div>
-          <div class="text-2xl font-bold">${data.name}</div>
+          <div class="text-2xl font-bold text-yellow-300">${data.name}</div>
           <div class="text-gray-300 mt-2">📅 ${data.auctionDate} &nbsp;&nbsp; | Players/Team: ${data.playersPerTeam || "-"}</div>
           <div class="text-gray-400 mt-1 font-semibold">Organizer: ${data.organizerName}</div>
         </div>
@@ -188,7 +151,28 @@ if (startAuctionBtn) {
     }
   }
 
-  // Tab navigation and plus for teams/players
+  // Tab navigation
+  const tabs = document.querySelectorAll('.nav-tab');
+  if (tabs.length > 0) {
+    tabs.forEach(function (btn) {
+      btn.onclick = function() {
+        tabs.forEach(b => b.classList.remove('active-nav'));
+        btn.classList.add('active-nav');
+        const ids = ['teams','players','mvp','sponsors','about'];
+        ids.forEach(id => {
+          const tabSection = document.getElementById('tab-content-' + id);
+          if(tabSection) tabSection.classList.add('hidden');
+        });
+        const activeSection = document.getElementById('tab-content-' + btn.id.split('-')[1]);
+        if(activeSection) activeSection.classList.remove('hidden');
+        setTeamsPlusVisibility(btn.id === 'nav-teams');
+        setPlayersPlusVisibility(btn.id === 'nav-players');
+        if(btn.id === 'nav-teams'){ renderTeams(); }
+        if(btn.id === 'nav-players'){ renderPlayers(); }
+      };
+    });
+  }
+
   function setTeamsPlusVisibility(visible) {
     const teamBtn = document.getElementById('openTeamModal');
     if (teamBtn) teamBtn.style.display = visible ? 'flex' : 'none';
@@ -197,35 +181,18 @@ if (startAuctionBtn) {
     const playerBtn = document.getElementById('openPlayerModal');
     if (playerBtn) playerBtn.style.display = visible ? 'flex' : 'none';
   }
-  const tabs = document.querySelectorAll('.nav-tab');
-  if (tabs.length > 0) {
-    tabs.forEach(function (btn, idx) {
-      btn.onclick = function() {
-        tabs.forEach(b => b.classList.remove('active-nav'));
-        btn.classList.add('active-nav');
-        let ids = ['teams','players','mvp','sponsors','about'];
-        ids.forEach(id => {
-          const tabSection = document.getElementById('tab-content-' + id);
-          if(tabSection) tabSection.classList.add('hidden');
-        });
-        const activeSection = document.getElementById('tab-content-' + ids[idx]);
-        if(activeSection) activeSection.classList.remove('hidden');
-        setTeamsPlusVisibility(idx === 0);
-        setPlayersPlusVisibility(idx === 1);
-        if(idx===0){ renderTeams();}
-        if(idx===1){ renderPlayers();}
-      };
-    });
-    setTeamsPlusVisibility(true);
-    setPlayersPlusVisibility(false);
-  }
+  setTeamsPlusVisibility(true);
+  setPlayersPlusVisibility(false);
 
-  // Add Team Modal Logic
-  const openModalBtn = document.getElementById('openTeamModal');
-  const closeModalBtn = document.getElementById('closeTeamModal');
+  // -------------------------
+  // ADD TEAM
+  // -------------------------
+  const openTeamModal = document.getElementById('openTeamModal');
+  const closeTeamModal = document.getElementById('closeTeamModal');
   const addTeamModal = document.getElementById('addTeamModal');
-  if (openModalBtn) openModalBtn.onclick = () => addTeamModal.classList.remove('hidden');
-  if (closeModalBtn) closeModalBtn.onclick = () => addTeamModal.classList.add('hidden');
+
+  if (openTeamModal) openTeamModal.onclick = () => addTeamModal.classList.remove('hidden');
+  if (closeTeamModal) closeTeamModal.onclick = () => addTeamModal.classList.add('hidden');
 
   const addTeamForm = document.getElementById('addTeamForm');
   if (addTeamForm && auctionId) {
@@ -235,9 +202,9 @@ if (startAuctionBtn) {
         name: document.getElementById('teamName').value,
         icon: document.getElementById('teamIcon').value,
         owner: document.getElementById('teamOwner').value,
-        captain: document.getElementById('teamCaptain').value,
+        captain: document.getElementById('teamCaptain').value
       };
-      let teams = JSON.parse(localStorage.getItem('teams_' + auctionId)) || [];
+      let teams = JSON.parse(localStorage.getItem('teams_' + auctionId) || "[]");
       teams.push(team);
       localStorage.setItem('teams_' + auctionId, JSON.stringify(teams));
       addTeamForm.reset();
@@ -245,46 +212,43 @@ if (startAuctionBtn) {
       renderTeams();
     };
   }
+
   function renderTeams() {
-  const teamsDiv = document.getElementById('teamsListSection');
-  if (!auctionId || !teamsDiv) return;
-  let teams = JSON.parse(localStorage.getItem('teams_' + auctionId)) || [];
+    const teamsDiv = document.getElementById('teamsListSection');
+    if (!auctionId || !teamsDiv) return;
+    let teams = JSON.parse(localStorage.getItem('teams_' + auctionId) || "[]");
 
-  // Get current purse per team as updated by live auction
-  let auctionState = JSON.parse(localStorage.getItem('auctionState_' + auctionId) || "{}");
-  let purseArray = auctionState.teamPurses || [];
+    const auctionState = JSON.parse(localStorage.getItem('auctionState_' + auctionId) || "{}");
+    const auctionData = JSON.parse(localStorage.getItem(auctionId) || "{}");
+    const purseLimit = auctionData.purseLimit || "";
+    const purseArray = auctionState.teamPurses || [];
 
-  // Fallback for initial rendering before auction starts
-  let purseLimit = "";
-  const auctionData = localStorage.getItem(auctionId);
-  if(auctionData){
-    const data = JSON.parse(auctionData);
-    purseLimit = data.purseLimit || "";
-  }
-
-  if (teams.length === 0) {
-    teamsDiv.innerHTML = '<p class="text-center text-gray-300 mt-8">No teams added yet.</p>';
-  } else {
-    teamsDiv.innerHTML = teams.map((team, idx) => `
-      <div class="flex items-center gap-6 m-4 bg-gray-800 p-4 rounded shadow">
-        <img src="${team.icon}" class="w-14 h-14 rounded-full object-cover border-2 border-yellow-300">
-        <div>
-          <div class="font-extrabold text-lg text-yellow-300">${team.name}</div>
-          <div class="text-gray-200 text-md">Owner: ${team.owner}</div>
-          <div class="text-gray-400 text-sm">Captain: ${team.captain}</div>
-          <div class="text-green-400 text-md mt-1 font-bold">
-            Purse Left: ₹ ${purseArray[idx] !== undefined ? purseArray[idx] : purseLimit}
+    if (teams.length === 0) {
+      teamsDiv.innerHTML = '<p class="text-center text-gray-300 mt-8">No teams added yet.</p>';
+    } else {
+      teamsDiv.innerHTML = teams.map((team, idx) => `
+        <div class="flex items-center gap-6 m-4 bg-gray-800 p-4 rounded shadow">
+          <img src="${team.icon}" class="w-14 h-14 rounded-full object-cover border-2 border-yellow-300">
+          <div>
+            <div class="font-extrabold text-lg text-yellow-300">${team.name}</div>
+            <div class="text-gray-200 text-md">Owner: ${team.owner}</div>
+            <div class="text-gray-400 text-sm">Captain: ${team.captain}</div>
+            <div class="text-green-400 text-md mt-1 font-bold">
+              Purse Left: ₹ ${purseArray[idx] !== undefined ? purseArray[idx] : purseLimit}
+            </div>
           </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
+    }
   }
-}
 
-  // Add Player Modal Logic
+  // -------------------------
+  // ADD PLAYER (URL PHOTO)
+  // -------------------------
   const openPlayerModal = document.getElementById('openPlayerModal');
   const closePlayerModal = document.getElementById('closePlayerModal');
   const addPlayerModal = document.getElementById('addPlayerModal');
+
   if (openPlayerModal) openPlayerModal.onclick = () => addPlayerModal.classList.remove('hidden');
   if (closePlayerModal) closePlayerModal.onclick = () => addPlayerModal.classList.add('hidden');
 
@@ -292,49 +256,65 @@ if (startAuctionBtn) {
   if (addPlayerForm && auctionId) {
     addPlayerForm.onsubmit = function (e) {
       e.preventDefault();
-      const name = document.getElementById('playerName').value;
-      const age = document.getElementById('playerAge').value;
-      const basePrice = document.getElementById('playerBasePrice').value; 
+      const name = document.getElementById('playerName').value.trim();
+      const age = document.getElementById('playerAge').value.trim();
+      const basePrice = document.getElementById('playerBasePrice').value.trim();
       const role = document.getElementById('playerRole').value;
-      const photoInput = document.getElementById('playerPhoto');
-      if (photoInput.files && photoInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-          const photoData = event.target.result;
-          const player = { name, age, role, basePrice, photo: photoData };
-          let players = JSON.parse(localStorage.getItem('players_' + auctionId)) || [];
-          players.push(player);
-          localStorage.setItem('players_' + auctionId, JSON.stringify(players));
-          addPlayerForm.reset();
-          addPlayerModal.classList.add('hidden');
-          renderPlayers();
-        };
-        reader.readAsDataURL(photoInput.files[0]);
-      }
+      const photoUrl = document.getElementById('playerPhotoUrl').value.trim(); // optional
+
+      const player = { name, age, basePrice, role, photo: photoUrl };
+
+      let players = JSON.parse(localStorage.getItem('players_' + auctionId) || "[]");
+      players.push(player);
+      localStorage.setItem('players_' + auctionId, JSON.stringify(players));
+
+      addPlayerForm.reset();
+      addPlayerModal.classList.add('hidden');
+      renderPlayers();
     };
   }
+
   function renderPlayers() {
     const playersDiv = document.getElementById('playersListSection');
     if (!auctionId || !playersDiv) return;
-    let players = JSON.parse(localStorage.getItem('players_' + auctionId)) || [];
+    let players = JSON.parse(localStorage.getItem('players_' + auctionId) || "[]");
+
     if (players.length === 0) {
       playersDiv.innerHTML = '<p class="text-center text-gray-300 mt-8">No players added yet.</p>';
-    } else {
-      playersDiv.innerHTML = players.map(player => `
-        <div class="flex items-center gap-6 m-4 bg-gray-800 p-4 rounded shadow">
-          <img src="${player.photo}" class="w-14 h-14 rounded-full object-cover border-2 border-yellow-300">
-          <div>
-            <div class="font-extrabold text-lg text-yellow-300">${player.name}</div>
-            <div class="text-gray-200 text-md">Age: ${player.age}</div>
-            <div class="text-gray-400 text-sm">Role: ${player.role}</div>
-            <div class="text-gray-400 text-sm">Base Price: ${player.basePrice}</div>
-          </div>   
-        </div>
-      `).join('');  
+      return;
     }
+
+    playersDiv.innerHTML = players.map(pl => {
+      const badge = pl.photo
+        ? `<img src="${pl.photo}" class="w-14 h-14 rounded-full object-cover border-2 border-yellow-300">`
+        : `<div class="w-14 h-14 rounded-full border-2 border-yellow-300 bg-gray-700 flex items-center justify-center text-sm text-yellow-300">
+             ${pl.role ? pl.role[0] : 'P'}
+           </div>`;
+      return `
+        <div class="flex items-center gap-6 m-4 bg-gray-800 p-4 rounded shadow">
+          ${badge}
+          <div>
+            <div class="font-extrabold text-lg text-yellow-300">${pl.name}</div>
+            <div class="text-gray-200 text-md">Age: ${pl.age}</div>
+            <div class="text-gray-400 text-sm">Role: ${pl.role}</div>
+            <div class="text-gray-400 text-sm">Base Price: ₹${pl.basePrice}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
-  // ---- On page load: render both teams and players (if those tabs exist)
-  renderTeams();
-  renderPlayers();
+  // Initial renders on auction-options
+  if (document.getElementById('teamsListSection')) renderTeams();
+  if (document.getElementById('playersListSection')) renderPlayers();
+
+  // -------------------------
+  // START AUCTION BUTTON
+  // -------------------------
+  const startAuctionBtn = document.getElementById('startAuctionBtn');
+  if (startAuctionBtn && auctionId) {
+    startAuctionBtn.onclick = function () {
+      window.location.href = 'auction-start.html?auctionId=' + auctionId;
+    };
+  }
 });

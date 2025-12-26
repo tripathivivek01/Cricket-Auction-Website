@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Auction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(to top right, rgba(18,22,38,0.9), rgba(18,22,38,0.9)),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .glass {
+      background: rgba(30,36,56,0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+<body class="px-4 py-6">
+  <div id="header" class="max-w-6xl mx-auto mb-6 flex justify-between items-center">
+    <h1 id="viewTitle" class="text-3xl font-extrabold text-yellow-400">Auction Overview</h1>
+    <button onclick="history.back()" class="px-4 py-2 bg-red-600 hover:bg-red-800 text-white rounded-lg font-semibold shadow">
+      Back
+    </button>
+  </div>
+
+  <div id="teamsContainer" class="max-w-6xl mx-auto space-y-8"></div>
+
+  <script src="view-auction.js"></script>
+</body>
+</html>
